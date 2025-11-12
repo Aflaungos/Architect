@@ -884,20 +884,16 @@ public static class EditorUIManager
     private static (Button, Image) CreateImagedButton(LayoutRoot layout, Sprite sprite, string name,
         int horizontalPadding, int verticalPadding, int index)
     {
-    	var buttonSize = (int)(BASE_BUTTON_SIZE * _uiScaleFactor);
-        var imageSize = (int)(BASE_IMAGE_SIZE * _uiScaleFactor);
-
-	var existingButton = PauseOptions.FirstOrDefault(x => x.Name == name + " Button");
-        var existingImage = PauseOptions.FirstOrDefault(x => x.Name == name + " Image");
-    
-        if (existingButton != null)
+        var ext = index < 0 ? 0 : 10;
+        var img = new Image(layout, sprite, name + " Image")
         {
-            existingButton.Destroy();
-        }
-        if (existingImage != null)
-        {
-            existingImage.Destroy();
-        }
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            Height = 40 + 2 * ext,
+            Width = 40 + 2 * ext,
+            PreserveAspectRatio = true,
+            Padding = new Padding(horizontalPadding + 35 - ext, verticalPadding + 35 - ext)
+        };
 
         var button = new Button(layout, name + " Button")
         {
